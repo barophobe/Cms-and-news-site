@@ -3,13 +3,24 @@
 class User {
 	protected $id = null;
 	protected $userType = null;
-	protected $username = null;
+	protected $firstname = null;
+	protected $lastname = null;
 	protected $email = null;
 	protected $pass = null;
+	protected $userLevel = null;
 	protected $dateAdded = null;
 
 	function getId() {
 	return $this->id;
+}
+	function getuserType() {
+	return $this->userType;
+}
+	function getFirstName() {
+	return $this->firstname;
+}
+	function getLastName() {
+	return $this->lastname;
 }
 	function isAdmin() {
 	return ($this->userType == 'admin');
