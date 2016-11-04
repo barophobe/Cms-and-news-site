@@ -1,0 +1,50 @@
+.thu {
+  display: block;
+  margin: 10px auto;
+  width: 178px;
+  height: 89px; }
+
+#myCarousel .carousel-caption {
+  left: 0;
+  bottom: 0;
+  background: -moz-linear-gradient(top, transparent 0, rgba(0, 0, 0, 0.35) 20%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, transparent), color-stop(20%, rgba(0, 0, 0, 0.35)));
+  background: -webkit-linear-gradient(top, transparent 0, rgba(0, 0, 0, 0.35) 20%);
+  background: -o-linear-gradient(top, transparent 0, rgba(0, 0, 0, 0.35) 20%);
+  background: -ms-linear-gradient(top, transparent 0, rgba(0, 0, 0, 0.35) 20%);
+  background: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, 0.35) 20%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#59000000', GradientType=0);
+  padding: 20px 10px 10px;
+  width: 100%;
+  position: absolute; }
+
+.mainPic {
+  max-width: 100%; }
+
+body {
+  background: #ffffff; }
+
+.container {
+  padding-left: 0;
+  padding-right: 0; }
+
+.news h3 {
+  background: #080808;
+  color: #ffffff;
+  text-align: center; }
+
+.sideBar {
+  /* border:1px solid #080808; */
+  height: 350px;
+  padding: 2px; }
+
+.carousel-control {
+  margin-top: 30%; }
+
+#brLine {
+  border-right: 1px solid #080808; }
+
+#sideHd {
+  margin-top: 0; }
+
+/*# sourceMappingURL=styles.css.map */
