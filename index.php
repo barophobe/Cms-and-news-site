@@ -3,7 +3,7 @@
 /*require('includes/utilities.inc.php');*/
 require ('includes/config.inc.php');
 
-$pageTitle = 'Welcome to the site';
+$pageTitle = 'News Site';
 include('includes/header.inc.php');
 
 try {

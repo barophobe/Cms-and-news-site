@@ -1,7 +1,7 @@
 <?php # Script 18.6 - register.php
 // This is the registration page for the site.
 require ('includes/config.inc.php');
-$page_title = 'Register';
+$pageTitle = 'Register';
 include ('includes/header.inc.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
@@ -17,21 +17,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
 	
 	// Check for a first name:
 	if (preg_match ('/^[A-Z \'.-]{2,20}$/i', $trimmed['first_name'])) {
-		$fn = mysqli_real_escape_string ($dbc, $trimmed['first_name']);
+		$fn = $pdo->quote($trimmed['first_name']);
+		/*$fn = mysqli_real_escape_string ($dbc, $trimmed['first_name']);*/
 	} else {
 		echo '<p class="error">Please enter your first name!</p>';
 	}
 
 	// Check for a last name:
 	if (preg_match ('/^[A-Z \'.-]{2,40}$/i', $trimmed['last_name'])) {
-		$ln = mysqli_real_escape_string ($dbc, $trimmed['last_name']);
+		$ln = $pdo->quote($trimmed['last_name']);
 	} else {
 		echo '<p class="error">Please enter your last name!</p>';
 	}
 	
 	// Check for an email address:
 	if (filter_var($trimmed['email'], FILTER_VALIDATE_EMAIL)) {
-		$e = mysqli_real_escape_string ($dbc, $trimmed['email']);
+		$e = $pdo->quote($trimmed['email']);
 	} else {
 		echo '<p class="error">Please enter a valid email address!</p>';
 	}
@@ -39,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
 	// Check for a password and match against the confirmed password:
 	if (preg_match ('/^\w{4,20}$/', $trimmed['password1']) ) {
 		if ($trimmed['password1'] == $trimmed['password2']) {
-			$p = mysqli_real_escape_string ($dbc, $trimmed['password1']);
+			$p = $pdo->quote($trimmed['password1']);
 		} else {
 			echo '<p class="error">Your password did not match the confirmed password!</p>';
 		}
@@ -51,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
 
 		// Make sure the email address is available:
 		$q = "SELECT user_id FROM users WHERE email='$e'";
-		$r = mysqli_query ($dbc, $q) or trigger_error("Query: $q\n<br />MySQL Error: " . mysqli_error($dbc));
+		$r = $pdo->query($q) /*or trigger_error("Query: $q\n<br />MySQL Error: " . mysqli_error($dbc))*/;
 		
 		if (mysqli_num_rows($r) == 0) { // Available.
 
@@ -86,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
 		echo '<p class="error">Please try again.</p>';
 	}
 
-	mysqli_close($dbc);
+	unset($pdo);
 
 } // End of the main Submit conditional.
 ?>

@@ -33,10 +33,14 @@ body {
   color: #ffffff;
   text-align: center; }
 
-.sideBar {
+.sideBar, .hSideBar, .pgSideBar {
   /* border:1px solid #080808; */
-  height: 350px;
   padding: 2px; }
+  .sideBar p, .hSideBar p, .pgSideBar p {
+    text-indent: 20px; }
+
+.hSideBar {
+  height: 350px; }
 
 .carousel-control {
   margin-top: 30%; }
@@ -46,5 +50,20 @@ body {
 
 #sideHd {
   margin-top: 0; }
+
+.pgDate {
+  text-align: right;
+  color: #df3531;
+  padding: 3px;
+  margin-top: 0;
+  /*     font-size: 15px; */ }
+
+.pgCon {
+  padding: 2px;
+  text-indent: 30px;
+  color: red; }
+
+/*  .pgHd {
+ } */
 
 /*# sourceMappingURL=styles.css.map */

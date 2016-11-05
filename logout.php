@@ -1,7 +1,7 @@
 <?php # Script 18.9 - logout.php
 // This is the logout page for the site.
 require ('includes/config.inc.php'); 
-$page_title = 'Logout';
+$pageTitle = 'Logout';
 include ('includes/header.inc.php');
 
 // If no first_name session variable exists, redirect the user:

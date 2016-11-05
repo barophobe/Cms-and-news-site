@@ -1,7 +1,7 @@
 <?php # Script 18.8 - login.php
 // This is the login page for the site.
 require ('includes/config.inc.php'); 
-$page_title = 'Login';
+$pageTitle = 'Login';
 include ('includes/header.inc.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

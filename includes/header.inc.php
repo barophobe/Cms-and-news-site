@@ -1,15 +1,14 @@
-<?php # Script 18.1 - header.html
+<?php #  header.inc.php
 // This page begins the HTML header for the site.
-/*require('includes/utilities.inc.php');*/
+
 // Start output buffering:
 ob_start();
+/*require('includes/utilities.inc.php');*/
 /*require ('includes/config.inc.php');*/
-
-
 // Check for a $page_title value:
-if (!isset($page_title)) {
-	$page_title = 'User Registration';
-}
+/*if (!isset($page_title)) {
+  $page_title = 'User Registration';
+}*/
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
