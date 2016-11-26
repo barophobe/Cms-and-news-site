@@ -43,7 +43,24 @@ ob_start();
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
   </head>
 <body>
-  <div class="container realBdy">
+  <header class="woops">
+    
+
+
+      <div class="container">
+        <div class="row-fluid">
+          <div class="col-md-3">
+            <img src="images/ed-connolly-LOGO-01.png" alt="" />
+          </div>
+        </div>
+      </div>
+
+</header>
+
+
+
+  <div class="container-fluid end">
+  <div class="container realHdr">
   <nav class="nav navbar-inverse">
      <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -141,7 +158,7 @@ ob_start();
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
+</div>
 </div>
 <div class="jquery-script-clear"></div>
 

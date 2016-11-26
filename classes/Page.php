@@ -32,3 +32,4 @@ function getIntro($count = 200) {
 	return substr(strip_tags($this->content),0,$count) . '...';
 }
 }
+

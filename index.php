@@ -8,7 +8,7 @@ include('includes/header.inc.php');
 
 try {
 
-	$q = 'SELECT id, title, content, DATE_FORMAT(dateAdded, "%e %m %y") AS dateAdded FROM pages ORDER BY dateAdded DESC LIMIT 4';
+	$q = 'SELECT id, title, content, DATE_FORMAT(dateAdded, "%e %m %y") AS dateAdded FROM pages ORDER BY dateAdded DESC LIMIT 2';
 	$r = $pdo->query($q);
 
 	if ($r && $r->rowCount() > 0) {

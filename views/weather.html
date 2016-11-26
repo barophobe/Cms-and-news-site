@@ -1,0 +1,27 @@
+
+ <em><strong><h4><?php echo $weather->city->name;?></h4></strong></em> 
+ <span><?php echo $weather->temperature;?></span></br>
+<p>Wind: <em><?php echo $weather1->wind->speed;?></em></p>
+<p>Clouds: <em><?php echo $weather->clouds->getDescription();?></em></p>
+<p>Rain: <em><?php echo $weather->precipitation->getDescription();?></em></p>
+<p>Sunrise: <em><?php echo $weather->sun->rise->format('r');?></em></p>
+<p>Sunset: <em><?php echo $weather->sun->set->format('r');?></em></p>
+
+<!--  
+
+echo 'Wind Speed: '.$weather1->wind->speed;
+echo "<br />\n";
+
+echo 'Direction: '.;
+echo "<br />\n";
+echo 'Sunrise: '.$weather->sun->rise->format('r');
+echo "<br />\n";
+echo 'Sunset: '.$weather->sun->set->format('r');
+echo "<br />\n";*/ -->
+
+
+
+<!--  " <h4>{$weather->city->name;}</h4></a><em><strong><span class=\"date\">{$page->getDateAdded()}</span></strong></em>
+               <p class=\"pgCon\">{$page->getIntro()}</p>
+               <p class=\"pgLink\"><a href=\"page.php?id={$page->getId()}\">read more here...</a></p>"; -->
+             
