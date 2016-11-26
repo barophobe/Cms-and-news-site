@@ -1,12 +1,14 @@
 
  <em><strong><h4><?php echo $weather->city->name;?></h4></strong></em> 
- <span><?php echo $weather->temperature;?></span></br>
-<p>Wind: <em><?php echo $weather1->wind->speed;?></em></p>
-<p>Clouds: <em><?php echo $weather->clouds->getDescription();?></em></p>
-<p>Rain: <em><?php echo $weather->precipitation->getDescription();?></em></p>
-<p>Sunrise: <em><?php echo $weather->sun->rise->format('r');?></em></p>
-<p>Sunset: <em><?php echo $weather->sun->set->format('r');?></em></p>
 
+ <span id="deg"><?php echo $weather->temperature;?></span></br>
+  <div class="bdrR">
+<p><span>Wind: </span><em><?php echo $weather1->wind->speed;?></em></p>
+<p><span>Clouds: </span><em><?php echo $weather->clouds->getDescription();?></em></p>
+<p><span>Rain: </span><em><?php echo $weather->precipitation->getDescription();?></em></p>
+<p><span>Sunrise: </span><em><?php echo $weather->sun->rise->format('r');?></em></p>
+<p><span>Sunset: </span><em><?php echo $weather->sun->set->format('r');?></em></p>
+</div>
 <!--  
 
 echo 'Wind Speed: '.$weather1->wind->speed;

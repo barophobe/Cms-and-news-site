@@ -100,13 +100,16 @@
   display: inline-block;
   margin-bottom: 4%;
   padding: 5px; }
-.weather span {
+.weather #deg {
   float: right;
   color: #df3531;
   padding: 5px;
   margin: 8px 0 8px 0;
   font-size: 1.2em;
-  text-align: bottom; }
+  text-align: bottom;
+  border-bottom: 2px solid #e6c200; }
+.weather span {
+  color: #df3531; }
 .weather p {
   margin: 0; }
 
@@ -147,5 +150,11 @@
   width: 100%;
   margin-top: 0%;
   border-bottom: 2px solid #e6c200; }
+
+.bdrR {
+  clear: float;
+  margin-left: -10px;
+  padding: 10px;
+  border-left: 2px solid #e6c200; }
 
 /*# sourceMappingURL=styles.css.map */
