@@ -29,4 +29,4 @@ header("Location: $url");
 exit(); //quit script.
 } // end main if-else.
 /*include ('includes/footer.html');*/
-?>
+?>		

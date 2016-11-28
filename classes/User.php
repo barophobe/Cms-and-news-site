@@ -3,6 +3,7 @@
 class User {
 	protected $id = null;
 	protected $userType = null;
+	protected $username = null;
 	protected $firstname = null;
 	protected $lastname = null;
 	protected $email = null;
@@ -15,6 +16,9 @@ class User {
 }
 	function getuserType() {
 	return $this->userType;
+}
+	function getUserName() {
+	return $this->username;
 }
 	function getFirstName() {
 	return $this->firstname;

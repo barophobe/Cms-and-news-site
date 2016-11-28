@@ -37,5 +37,5 @@ try  {
 		include('views/error.html');
 
 	}
-	/*include('includes/footer.inc.php');*/
+	include('includes/footer.inc.php');
 	?>

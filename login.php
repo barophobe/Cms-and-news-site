@@ -1,86 +1,66 @@
-<?php # Script 18.8 - login.php
-// This is the login page for the site.
-require ('includes/config.inc.php'); 
+<?php # login.php - 9.11
+// This page both displays and handles the login form.
+
+// Need the utilities file:
+require('includes/utilities.inc.php');
+
+// Create a new form:
+/*set_include_path(get_include_path() . PATH_SEPARATOR . '/usr/local/pear/share/pear/');*/
+require('HTML/QuickForm2.php');
+$form = new HTML_QuickForm2('loginForm');
+
+// Add the email address:
+$email = $form->addElement('text', 'email');
+$email->setLabel('Email Address');
+$email->addFilter('trim');
+$email->addRule('required', 'Please enter your email address.');
+$email->addRule('email', 'Please enter your email address.');
+
+// Add the password field:
+$password = $form->addElement('password', 'pass');
+$password->setLabel('Password');
+$password->addFilter('trim');
+$password->addRule('required', 'Please enter your password.');
+
+// Add the submit button:
+$form->addElement('submit', 'submit', array('value'=>'Login'));
+
+// Check for a form submission:
+if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form submission
+    
+    // Validate the form data:
+    if ($form->validate()) {
+        
+        // Check against the database:
+        $q = 'SELECT user_id, userType, first_name, last_name, username, email FROM users WHERE email=:email AND pass=SHA1(:pass)';
+        $stmt = $pdo->prepare($q);
+        $r = $stmt->execute(array(':email' => $email->getValue(), ':pass' => $password->getValue()));
+
+        // Try to fetch the results:
+        if ($r) {
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
+            $user = $stmt->fetch();
+        }
+        
+        // Store the user in the session and redirect:
+        if ($user) {
+    
+            // Store in a session:
+            $_SESSION['user'] = $user;
+    
+            // Redirect:
+            header("Location:index.php");
+            exit;
+    
+        }
+        
+    } // End of form validation IF.
+    
+} // End of form submission IF.
+
+// Show the login page:
 $pageTitle = 'Login';
-include ('includes/header.inc.php');
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	require (MYSQL);
-	
-	// Validate the email address:
-	if (!empty($_POST['email'])) {
-		$e = mysqli_real_escape_string ($dbc, $_POST['email']);
-	} else {
-		$e = FALSE;
-		echo '<p class="error">You forgot to enter your email address!</p>';
-	}
-	
-	// Validate the password:
-	if (!empty($_POST['pass'])) {
-		$p = mysqli_real_escape_string ($dbc, $_POST['pass']);
-	} else {
-		$p = FALSE;
-		echo '<p class="error">You forgot to enter your password!</p>';
-	}
-	
-	if ($e && $p) { // If everything's OK.
-
-		// Query the database:
-		$q = "SELECT user_id, first_name, user_level FROM users WHERE (email='$e' AND pass=SHA1('$p')) AND active IS NULL";		
-		$r = mysqli_query ($dbc, $q) or trigger_error("Query: $q\n<br />MySQL Error: " . mysqli_error($dbc));
-		
-		if (@mysqli_num_rows($r) == 1) { // A match was made.
-
-			// Register the values:
-			$_SESSION = mysqli_fetch_array ($r, MYSQLI_ASSOC); 
-			mysqli_free_result($r);
-			mysqli_close($dbc);
-							
-			// Redirect the user:
-			$url = BASE_URL . 'index.php'; // Define the URL.
-			ob_end_clean(); // Delete the buffer.
-			header("Location: $url");
-			exit(); // Quit the script.
-				
-		} else { // No match was made.
-			echo '<p class="error">Either the email address and password entered do not match those on file or you have not yet activated your account.</p>';
-		}
-		
-	} else { // If everything wasn't OK.
-		echo '<p class="error">Please try again.</p>';
-	}
-	
-	mysqli_close($dbc);
-
-} // End of SUBMIT conditional.
+include('includes/header.inc.php');
+include('views/login.html');
+include('includes/footer.inc.php');
 ?>
-<div class="container-fluid">
-<div class="row">
-	<div class="col-lg-3 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-5 col-sm-offset-1">
-<h1>Login</h1>
-<p>Your browser must allow cookies in order to log in.</p>
-<form class="form-horizontal" action="login.php" method="post">
-	<fieldset> 
-
-	<div class="form-group">
-	   <label for="email">Email Address:</label>
-	   <input class="form-control input-md" type="text" name="email" size="20" maxlength="60" />
-	</div>
-
-    <div class="form-group">
-	    <label for="password">Password:</label>
-	    <input class="form-control input-md" type="password" name="pass" size="20" maxlength="20" />
-	</div>
-
-	<div align="center"><button class="btn btn-default" type="submit" name="submit" value="Login" />Login</button>
-
-	</fieldset>
-</form>
-</div>
-</div>
-</div>
-<?php include ('includes/footer.html'); ?>
-
-
-
-

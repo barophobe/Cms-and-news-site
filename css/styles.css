@@ -5806,6 +5806,15 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+@font-face {
+  font-family: fonted;
+  src: url("../assets/vendorfonts/Cutive_Mono/CutiveMono-Regular.ttf"); }
+@font-face {
+  font-family: raleway;
+  src: url("../assets/vendorfonts/raleway/Raleway-Regular.ttf"); }
+body {
+  font-family: raleway; }
+
 .navbar-nav {
   margin: 7.5px -15px; }
 
@@ -5859,7 +5868,9 @@ button.close {
   color: #777; }
 
 .navbar-default .navbar-nav > li > a {
-  color: #fff; }
+  color: #fff;
+  font-family: fonted;
+  text-transform: uppercase; }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
   color: #f5ce00;
@@ -5935,7 +5946,9 @@ button.close {
   color: #9d9d9d; }
 
 .navbar-inverse .navbar-nav > li > a {
-  color: #fff; }
+  color: #fff;
+  font-family: fonted;
+  text-transform: uppercase; }
 
 .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
   color: #df3531;
@@ -6428,7 +6441,7 @@ button.close {
 .bdrR {
   clear: float;
   margin-top: 5px;
-  padding: 0px 5px 0px 20px;
+  padding: 0px 5px 0px 12px;
   border-left: 2px solid #f5ce00; }
 
 /*# sourceMappingURL=styles.css.map */

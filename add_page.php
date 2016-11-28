@@ -1,6 +1,6 @@
 <?php
-require ('includes/config.inc.php');
-
+require('includes/utilities.inc.php');
+/*require ('includes/config.inc.php');*/
 if (!$user->canCreatePage()) {
 	header("Location:index.php");
 	exit;
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	if ($form->validate()) {
 
-	$q = 'INSERT INTO pages (creatorId, title, content, dateAdded) VALUES (:creatorId, :title, :content,NOW())';
+	$q = 'INSERT INTO pages (creatorId, title, content, dateAdded) VALUES (:creatorId, :title, :content, NOW())';
 	$stmt = $pdo->prepare($q);
 	$r = $stmt->execute(array(':creatorId' => $user->getId(), ':title' => $title->getValue(), ':content' => $content->getValue()));
 

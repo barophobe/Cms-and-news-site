@@ -1,114 +1,105 @@
-<?php # Script 18.6 - register.php
-// This is the registration page for the site.
-require ('includes/config.inc.php');
+<?php # register.php 
+// This page both displays and handles the registration form.
+
+
+// Need the utilities file:
+require('includes/utilities.inc.php');
+/*require ('includes/config.inc.php');*/
+// Create a new form:
+set_include_path(get_include_path() . PATH_SEPARATOR . '/usr/share/pear');
+require('HTML/QuickForm2.php');
+
+
+
+
+$form = new HTML_QuickForm2('registerForm');
+
+  
+
+// Add the firstname field:
+$firstname = $form->addElement('text', 'first_name', 'class=form-control input-xs');
+$firstname->setLabel('Firstname');
+$firstname->addFilter('trim');
+$firstname->addFilter('strip_tags');
+$firstname->addRule('required', 'Please enter a firstname.');
+
+// Add the lastname field:
+$lastname = $form->addElement('text', 'last_name', 'class=form-control input-xs');
+$lastname->setLabel('Lastname');
+$lastname->addFilter('trim');
+$lastname->addFilter('strip_tags');
+$lastname->addRule('required', 'Please enter a lastname.');
+
+// Add the username field:
+$username = $form->addElement('text', 'username', 'class=form-control input-xs');
+$username->setLabel('Username');
+$username->addFilter('trim');
+$username->addFilter('strip_tags');
+$username->addRule('required', 'Please enter a username.');
+
+// Add the email address field:
+$email = $form->addElement('text', 'email', 'class=form-control input-xs');
+$email->setLabel('Email Address');
+$email->addFilter('trim');
+$email->addRule('email', 'Please enter your email address.');
+$email->addRule('required', 'Please enter your email address.');
+
+// Add the password field:
+$pass = $form->addElement('password', 'pass', 'class=form-control input-xs');
+$pass->setLabel('Password');
+$pass->addFilter('trim');
+$pass->addRule('required', 'Please enter your password.');
+
+// Add the submit button:
+$submit = $form->addElement('submit', 'submit', 'class=btn btn-default', array('value'=>'Register'));
+
+
+
+// Check for a form submission:
+if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form submission
+    
+    // Validate the form data:
+    if ($form->validate()) {
+
+        // Check for the email address:
+        $q = 'SELECT email FROM users WHERE email=:email';
+        $stmt = $pdo->prepare($q);
+        $r = $stmt->execute(array(':email' => $email->getValue()));
+        if ($stmt->fetch(PDO::FETCH_NUM) > 0) {
+            $email->setError('That email address has already been registered.');
+        } else {
+
+            // Insert into the database:
+            $a = md5(uniqid(rand(), true));
+            $q = 'INSERT INTO users (userType, first_name, last_name, active, username, email, pass, registration_date) VALUES ("public", :firstname, :lastname, :active, :username, :email, SHA1(:pass), NOW())';
+            $stmt = $pdo->prepare($q);
+            $r = $stmt->execute(array(':firstname' => $firstname->getValue(), ':lastname' => $lastname->getValue(), ':active' => $a, ':username' => $username->getValue(), ':email' => $email->getValue(), ':pass' => $pass->getValue()));
+
+
+            if ($r) { // If it ran OK.
+
+                // Send the email:
+                $body = "Thank you for registering at <whatever site>. To activate your account, please click on this link:\n\n";
+                $body .= BASE_URL . 'activate.php?x=' . urlencode($email->getValue()) . "&y=$a";
+                mail($email->getValue(), 'Registration Confirmation', $body, 'From: admin@sitename.com');
+                
+                
+               
+            // Freeze the form upon success:
+            
+                $form->toggleFrozen(true);
+                $form->removeChild($submit);
+            }
+
+        }
+                
+    } // End of form validation IF.
+    
+} // End of form submission IF.
+
+// Show the page:
 $pageTitle = 'Register';
-include ('includes/header.inc.php');
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
-
-	// Need the database connection:
-	require (MYSQL);
-	
-	// Trim all the incoming data:
-	$trimmed = array_map('trim', $_POST);
-
-	// Assume invalid values:
-	$fn = $ln = $e = $p = FALSE;
-	
-	// Check for a first name:
-	if (preg_match ('/^[A-Z \'.-]{2,20}$/i', $trimmed['first_name'])) {
-		$fn = $pdo->quote($trimmed['first_name']);
-		/*$fn = mysqli_real_escape_string ($dbc, $trimmed['first_name']);*/
-	} else {
-		echo '<p class="error">Please enter your first name!</p>';
-	}
-
-	// Check for a last name:
-	if (preg_match ('/^[A-Z \'.-]{2,40}$/i', $trimmed['last_name'])) {
-		$ln = $pdo->quote($trimmed['last_name']);
-	} else {
-		echo '<p class="error">Please enter your last name!</p>';
-	}
-	
-	// Check for an email address:
-	if (filter_var($trimmed['email'], FILTER_VALIDATE_EMAIL)) {
-		$e = $pdo->quote($trimmed['email']);
-	} else {
-		echo '<p class="error">Please enter a valid email address!</p>';
-	}
-
-	// Check for a password and match against the confirmed password:
-	if (preg_match ('/^\w{4,20}$/', $trimmed['password1']) ) {
-		if ($trimmed['password1'] == $trimmed['password2']) {
-			$p = $pdo->quote($trimmed['password1']);
-		} else {
-			echo '<p class="error">Your password did not match the confirmed password!</p>';
-		}
-	} else {
-		echo '<p class="error">Please enter a valid password!</p>';
-	}
-	
-	if ($fn && $ln && $e && $p) { // If everything's OK...
-
-		// Make sure the email address is available:
-		$q = "SELECT user_id FROM users WHERE email='$e'";
-		$r = $pdo->query($q) /*or trigger_error("Query: $q\n<br />MySQL Error: " . mysqli_error($dbc))*/;
-		
-		if (mysqli_num_rows($r) == 0) { // Available.
-
-			// Create the activation code:
-			$a = md5(uniqid(rand(), true));
-
-			// Add the user to the database:
-			$q = "INSERT INTO users (email, pass, first_name, last_name, active, registration_date) VALUES ('$e', SHA1('$p'), '$fn', '$ln', '$a', NOW() )";
-			$r = mysqli_query ($dbc, $q) or trigger_error("Query: $q\n<br />MySQL Error: " . mysqli_error($dbc));
-
-			if (mysqli_affected_rows($dbc) == 1) { // If it ran OK.
-
-				// Send the email:
-				$body = "Thank you for registering at <whatever site>. To activate your account, please click on this link:\n\n";
-				$body .= BASE_URL . 'activate.php?x=' . urlencode($e) . "&y=$a";
-				mail($trimmed['email'], 'Registration Confirmation', $body, 'From: admin@sitename.com');
-				
-				// Finish the page:
-				echo '<h3>Thank you for registering! A confirmation email has been sent to your address. Please click on the link in that email in order to activate your account.</h3>';
-				include ('includes/footer.html'); // Include the HTML footer.
-				exit(); // Stop the page.
-				
-			} else { // If it did not run OK.
-				echo '<p class="error">You could not be registered due to a system error. We apologize for any inconvenience.</p>';
-			}
-			
-		} else { // The email address is not available.
-			echo '<p class="error">That email address has already been registered. If you have forgotten your password, use the link at right to have your password sent to you.</p>';
-		}
-		
-	} else { // If one of the data tests failed.
-		echo '<p class="error">Please try again.</p>';
-	}
-
-	unset($pdo);
-
-} // End of the main Submit conditional.
+include('includes/header.inc.php');
+include('views/register.html');
+/*include('includes/footer.inc.php');*/
 ?>
-	
-<h1>Register</h1>
-<form action="register.php" method="post">
-	<fieldset>
-	
-	<p><b>First Name:</b> <input type="text" name="first_name" size="20" maxlength="20" value="<?php if (isset($trimmed['first_name'])) echo $trimmed['first_name']; ?>" /></p>
-	
-	<p><b>Last Name:</b> <input type="text" name="last_name" size="20" maxlength="40" value="<?php if (isset($trimmed['last_name'])) echo $trimmed['last_name']; ?>" /></p>
-
-	<p><b>Email Address:</b> <input type="text" name="email" size="30" maxlength="60" value="<?php if (isset($trimmed['email'])) echo $trimmed['email']; ?>" /> </p>
-		
-	<p><b>Password:</b> <input type="password" name="password1" size="20" maxlength="20" value="<?php if (isset($trimmed['password1'])) echo $trimmed['password1']; ?>" /> <small>Use only letters, numbers, and the underscore. Must be between 4 and 20 characters long.</small></p>
-
-	<p><b>Confirm Password:</b> <input type="password" name="password2" size="20" maxlength="20" value="<?php if (isset($trimmed['password2'])) echo $trimmed['password2']; ?>" /></p>
-	</fieldset>
-	
-	<div align="center"><input type="submit" name="submit" value="Register" /></div>
-
-</form>
-
-<?php include ('includes/footer.html'); ?>

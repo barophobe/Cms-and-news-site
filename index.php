@@ -1,7 +1,7 @@
 <?php
 
-/*require('includes/utilities.inc.php');*/
-require ('includes/config.inc.php');
+require('includes/utilities.inc.php');
+/*require ('includes/config.inc.php');*/
 
 $pageTitle = 'News Site';
 include('includes/header.inc.php');
@@ -23,6 +23,6 @@ try {
 	include('views/error.html');
 }
 
-/*include('includes/footer.inc.php');*/
+include('includes/footer.inc.php');
 
 ?>

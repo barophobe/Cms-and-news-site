@@ -3,8 +3,12 @@
 
 // Start output buffering:
 ob_start();
+/*session_start();*/
+
+// Check for a user in the session:
+//$user = (isset($_SESSION['user'])) ? $_SESSION['user'] : null;
 /*require('includes/utilities.inc.php');*/
-/*require ('includes/config.inc.php');*/
+/*require ('includes/config.inc.php');
 // Check for a $page_title value:
 /*if (!isset($page_title)) {
   $page_title = 'User Registration';
@@ -26,9 +30,10 @@ ob_start();
 	<![endif]-->
   <meta name="twitter:widgets:autoload" content="on">
   <link rel="canonical" href="https://dev.twitter.com/">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
 <!--   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
    -->  <link rel="stylesheet" href="css/styles.css">
+  <script src= "bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js" type="text/javascript"></script>
   <script src="js/edcodev.js" type="text/javascript"></script>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<!-- <title><?php  $page_title; ?></title> -->
@@ -71,29 +76,15 @@ ob_start();
     
       <ul class="nav navbar-nav navbar-right">
         <?php 
-                // Display links based upon the login status:
-            /*    if (isset($_SESSION['user_id'])) {
-
-                  echo '<li><a href="logout.php" title="Logout">Logout</a></li>
-                <li><a href="change_password.php" title="Change Your Password">Change Password</a></li>
-                ';
-
-                  // Add links if the user is an administrator:
-                  if ($_SESSION['user_level'] == 1) {
-                    echo '<li><a href="view_users.php" title="View All Users">View Users</a></li>
-                  <li><a href="#">Some Admin Page</a></li>
-                  ';
-                  }*/
-                
-                if (!isset($_SESSION['user_id'])) { //  Not logged in.
+                if (!$user) { //  Not logged in.
                   echo '<li><a href="register.php" title="Register for the Site">Register</a></li>
                 <li><a href="forgot_password.php" title="Password Retrieval">Retrieve Password</a></li>
                 ';
                 }
                 ?>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php if (isset($_SESSION['first_name'])) {
-  echo "<span class='test'> {$_SESSION['first_name']}</span>";} else { //  Not logged in.
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php if ($user) {
+  echo '<span>' . $user->getUserName() . '</span>';} else { //  Not logged in.
                   echo '<li><a href="login.php" title="Login">Log in</a></li>';
                 }
                 ?>
@@ -101,24 +92,20 @@ ob_start();
           <ul class="dropdown-menu">
             <?php 
                 // Display links based upon the login status:
-                if (isset($_SESSION['user_id'])) {
-
+                if ($user) {
                   echo '<li><a href="logout.php" title="Logout">Logout</a></li>
                 <li><a href="change_password.php" title="Change Your Password">Change Password</a></li>
-                ';
-
+                ';}
                   // Add links if the user is an administrator:
-                  if ($_SESSION['user_level'] == 1) {
+                  if ($user && $user->isAdmin()) {
                     echo '<li role="separator" class="divider"></li>
                     <li><a href="view_users.php" title="View All Users">View Users</a></li>
-                  <li><a href="#">Some Admin Page</a></li>
+                  <li><a href="add_page.php">Add a Page</a></li>
                   ';
-                  }
-                
-                } else { //  Not logged in.
+                } elseif (!$user){ //  Not logged in.
                   echo '<li><a href="register.php" title="Register for the Site">Register</a></li>
-                <li><a href="login.php" title="Login">Log in</a></li>
                 <li><a href="forgot_password.php" title="Password Retrieval">Retrieve Password</a></li>
+                <li><a href="login.php" title="Login">Log in</a></li>
                 ';
                 }
                 ?>
@@ -168,8 +155,9 @@ ob_start();
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <?php if ($user && $user->canCreatePage()) echo '<li><a href="add_page.php">Add a New Page</a></li>'; ?>
+            
             <li><a href="#">Another action</a></li>
+            <?php if ($user && $user->canCreatePage()) echo '<li><a href="add_page.php">Add a New Page</a></li>'; ?>
             <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Separated link</a></li>
@@ -186,29 +174,15 @@ ob_start();
       </form>
       <ul class="nav navbar-nav navbar-right">
         <?php 
-                // Display links based upon the login status:
-            /*    if (isset($_SESSION['user_id'])) {
-
-                  echo '<li><a href="logout.php" title="Logout">Logout</a></li>
-                <li><a href="change_password.php" title="Change Your Password">Change Password</a></li>
-                ';
-
-                  // Add links if the user is an administrator:
-                  if ($_SESSION['user_level'] == 1) {
-                    echo '<li><a href="view_users.php" title="View All Users">View Users</a></li>
-                  <li><a href="#">Some Admin Page</a></li>
-                  ';
-                  }*/
-                
-                if (!isset($_SESSION['user_id'])) { //  Not logged in.
+                if (!$user) { //  Not logged in.
                   echo '<li><a href="register.php" title="Register for the Site">Register</a></li>
                 <li><a href="forgot_password.php" title="Password Retrieval">Retrieve Password</a></li>
                 ';
                 }
                 ?>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php if (isset($_SESSION['first_name'])) {
-  echo "<span class='test'> {$_SESSION['first_name']}</span>";} else { //  Not logged in.
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php if ($user) {
+  echo '<span>' . $user->getUserName() . '</span>';} else { //  Not logged in.
                   echo '<li><a href="login.php" title="Login">Log in</a></li>';
                 }
                 ?>
@@ -216,24 +190,20 @@ ob_start();
           <ul class="dropdown-menu">
             <?php 
                 // Display links based upon the login status:
-                if (isset($_SESSION['user_id'])) {
-
+                if ($user) {
                   echo '<li><a href="logout.php" title="Logout">Logout</a></li>
                 <li><a href="change_password.php" title="Change Your Password">Change Password</a></li>
-                ';
-
+                ';}
                   // Add links if the user is an administrator:
-                  if ($_SESSION['user_level'] == 1) {
+                  if ($user && $user->isAdmin()) {
                     echo '<li role="separator" class="divider"></li>
                     <li><a href="view_users.php" title="View All Users">View Users</a></li>
-                  <li><a href="#">Some Admin Page</a></li>
+                  <li><a href="add_page.php">Add a Page</a></li>
                   ';
-                  }
-                
-                } else { //  Not logged in.
+                } elseif (!$user) { //  Not logged in.
                   echo '<li><a href="register.php" title="Register for the Site">Register</a></li>
-                <li><a href="login.php" title="Login">Log in</a></li>
                 <li><a href="forgot_password.php" title="Password Retrieval">Retrieve Password</a></li>
+                <li><a href="login.php" title="Login">Log in</a></li>
                 ';
                 }
                 ?>
