@@ -1,7 +1,8 @@
 <?php # Script - forgot_password.php
 //to reset password, if forgotten.
-require ('includes/config.inc.php');
-$page_title = 'Forgot Your Password';
+/*require ('includes/config.inc.php');*/
+require('includes/utilities.inc.php');
+$pagetitle = 'Forgot Your Password';
 include ('includes/header.inc.php');
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   	require (MYSQL);

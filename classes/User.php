@@ -1,7 +1,7 @@
 <?php
 
 class User {
-	protected $id = null;
+	protected $user_id = null;
 	protected $userType = null;
 	protected $username = null;
 	protected $firstname = null;
@@ -12,7 +12,7 @@ class User {
 	protected $dateAdded = null;
 
 	function getId() {
-	return $this->id;
+	return $this->user_id;
 }
 	function getuserType() {
 	return $this->userType;

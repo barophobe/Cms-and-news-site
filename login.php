@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form submission
     if ($form->validate()) {
         
         // Check against the database:
-        $q = 'SELECT user_id, userType, first_name, last_name, username, email FROM users WHERE email=:email AND pass=SHA1(:pass)';
+        $q = 'SELECT user_id, userType, first_name, last_name, username, email FROM users WHERE email=:email AND pass=SHA1(:pass) AND active IS NULL';
         $stmt = $pdo->prepare($q);
         $r = $stmt->execute(array(':email' => $email->getValue(), ':pass' => $password->getValue()));
 

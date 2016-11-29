@@ -8,7 +8,7 @@ include('includes/header.inc.php');
 
 try {
 
-	$q = 'SELECT id, title, content, DATE_FORMAT(dateAdded, "%e %m %y") AS dateAdded FROM pages ORDER BY dateAdded DESC LIMIT 2';
+	$q = 'SELECT id, title, content, DATE_FORMAT(dateAdded, "%e %m %y") AS dateAdded FROM pages ORDER BY dateAdded ASC LIMIT 2';
 	$r = $pdo->query($q);
 
 	if ($r && $r->rowCount() > 0) {
@@ -23,6 +23,6 @@ try {
 	include('views/error.html');
 }
 
-include('includes/footer.inc.php');
+/*include('includes/footer.inc.php');*/
 
 ?>

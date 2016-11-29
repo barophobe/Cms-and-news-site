@@ -6,7 +6,7 @@ if (!$user->canCreatePage()) {
 	exit;
 }
 
-set_include_path(get_include_path() . PATH_SEPARATOR . '/HTML/QuickForm2.php/');
+/*set_include_path(get_include_path() . PATH_SEPARATOR . '/HTML/QuickForm2.php/');*/
 require('HTML/QuickForm2.php');
 /*require(MYSQL);*/
 $form = new HTML_QuickForm2('addPageForm');

@@ -6255,6 +6255,31 @@ body {
   color: #fff;
   background-color: #df3531; }
 
+.nav-tabs {
+  border-bottom: 1px solid #ddd; }
+
+.nav-tabs > li {
+  float: left;
+  margin-bottom: -1px; }
+
+.nav-tabs > li > a {
+  color: #ffd700;
+  margin-right: 2px;
+  line-height: 1.42857;
+  border: 1px solid transparent;
+  /* border-radius: 0 0 0 0; */ }
+
+.nav-tabs > li > a:hover {
+  border-color: #eeeeee #eeeeee #ddd; }
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  color: #df3531;
+  font-weight: 100;
+  background-color: #fff;
+  border: 1px solid #080808;
+  border-bottom-color: transparent;
+  cursor: default; }
+
 .thu {
   display: block;
   margin: 10px auto;
@@ -6292,10 +6317,10 @@ body {
   background: #f3f3f3; }
 
 .realHdr {
-  background: #df3531; }
+  background: #222; }
 
 .realHdr1 {
-  background: #f3f3f3; }
+  background: #dbd8d8; }
 
 .newsLine {
   border-bottom: 1px dashed #dbd8d8;
@@ -6308,7 +6333,9 @@ body {
 .news h3 {
   background: #080808;
   color: #ffffff;
-  text-align: center; }
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold; }
 .news h4 {
   display: inline-block;
   margin: 1%;
@@ -6329,7 +6356,9 @@ body {
 .news2 h3 {
   background: #080808;
   color: #ffffff;
-  text-align: center; }
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold; }
 .news2 h4 {
   display: inline-block;
   margin: 1%;
@@ -6404,20 +6433,24 @@ body {
   margin: 0; }
 
 .seper {
-  border-top: 1px solid #dbd8d8; }
+  border-top: 2px solid #ffd700; }
+
+.seper1 {
+  border-top: 2px solid #e24b47; }
 
 .pos {
   position: relative; }
 
 .posB {
   position: absolute;
-  bottom: 0;
-  left: 0; }
+  bottom: 20%;
+  left: 3%; }
 
 .plc {
-  margin: 0 0 70% 10%; }
+  margin: 0 auto; }
 
 .btnEd {
+  color: #ffd700;
   padding-right: 50px;
   padding-left: 50px;
   border-radius: 20px; }
@@ -6443,5 +6476,57 @@ body {
   margin-top: 5px;
   padding: 0px 5px 0px 12px;
   border-left: 2px solid #f5ce00; }
+
+.music {
+  background-color: #df3531; }
+
+.musHd, .vidHd {
+  color: #ffd700;
+  text-align: center; }
+
+.edgeM {
+  background-color: #e24b47; }
+
+.edgeC {
+  background-color: #f8f8f8; }
+
+.edgeV {
+  background-color: #2f2f2f; }
+
+.vidHd {
+  color: #ffd700; }
+
+.nPad {
+  padding: 0 0 5% 0; }
+
+a.twitter-timeline {
+  /* Buttonish */
+  display: inline-block;
+  padding: 6px 12px 6px 30px;
+  margin: 10px 0;
+  border: #ffd700 solid 1px;
+  border-radius: 3px;
+  background: #ffd700 url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNzIgNzIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDcyIDcyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxyZWN0IHg9IjAiIGZpbGw9Im5vbmUiIHdpZHRoPSI3MiIgaGVpZ2h0PSI3MiIvPg0KPHBhdGggZmlsbD0iIzU1YWNlZSIgZD0iTTY4LjgxMiwxNS4xNDFjLTIuMzQ4LDEuMDM5LTQuODY5LDEuNzQzLTcuNTE5LDIuMDZjMi43MDMtMS42Miw0Ljc3OC00LjE4Nyw1Ljc1Ni03LjI0NGMtMi41MjksMS41LTUuMzMsMi41OTItOC4zMTMsMy4xNzYNCglDNTYuMzQ5LDEwLjU5MSw1Mi45NDgsOSw0OS4xODIsOWMtNy4yMjksMC0xMy4wOTIsNS44NjEtMTMuMDkyLDEzLjA5M2MwLDEuMDI2LDAuMTE4LDIuMDIxLDAuMzM4LDIuOTgxDQoJYy0xMC44ODUtMC41NDgtMjAuNTI4LTUuNzU3LTI2Ljk4Ny0xMy42NzljLTEuMTI2LDEuOTM2LTEuNzcxLDQuMTg0LTEuNzcxLDYuNTgxYzAsNC41NDIsMi4zMTIsOC41NTEsNS44MjQsMTAuODk4DQoJYy0yLjE0Ni0wLjA2OS00LjE2NS0wLjY1Ny01LjkzLTEuNjM4Yy0wLjAwMiwwLjA1NS0wLjAwMiwwLjExLTAuMDAyLDAuMTYyYzAsNi4zNDUsNC41MTMsMTEuNjM4LDEwLjUwNCwxMi44NA0KCWMtMS4xMDEsMC4yOTgtMi4yNTYsMC40NTctMy40NDksMC40NTdjLTAuODQ2LDAtMS42NjctMC4wNzgtMi40NjUtMC4yMzFjMS42NjcsNS4yLDYuNDk5LDguOTg2LDEyLjIzLDkuMDkNCgljLTQuNDgyLDMuNTEyLTEwLjEyOSw1LjYwNi0xNi4yNiw1LjYwNmMtMS4wNTUsMC0yLjA5Ni0wLjA2MS0zLjEyMi0wLjE4NGM1Ljc5NCwzLjcxNywxMi42NzYsNS44ODIsMjAuMDY3LDUuODgyDQoJYzI0LjA4MywwLDM3LjI1MS0xOS45NDksMzcuMjUxLTM3LjI0OWMwLTAuNTY2LTAuMDE0LTEuMTM0LTAuMDM5LTEuNjk0QzY0LjgzOCwyMC4wNjgsNjcuMDU4LDE3Ljc2NSw2OC44MTIsMTUuMTQxeiIvPg0KPC9zdmc+DQo=") 8px 8px no-repeat;
+  background-size: 1em 1em;
+  /* Text */
+  font: normal 12px/18px Helvetica, Arial, sans-serif;
+  color: #fff;
+  white-space: nowrap; }
+
+a.twitter-timeline:hover,
+a.twitter-timeline:focus {
+  background-color: #ffd700; }
+
+/* Color Highlight for keyboard navigation */
+a.twitter-timeline:focus {
+  outline: none;
+  border-color: #ffd700; }
+
+.tabTxt {
+  font-family: fonted;
+  color: #fff;
+  text-indent: 15px;
+  padding: 5px 0 5px 0;
+  border-bottom: 1px solid #fff; }
 
 /*# sourceMappingURL=styles.css.map */
